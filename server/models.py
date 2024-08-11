@@ -11,6 +11,9 @@ class User(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
+
+    reviews = db.relationship('Review', back_populates='users', cascade='all, delete-orphan')
+    doctors = association_proxy('reviews', 'doctor', creator=lambda doctor_obj: Review(doctor = doctor_obj))
     
 class Doctor(db.Model, SerializerMixin):
     __tablename__ = 'doctors'
@@ -20,6 +23,9 @@ class Doctor(db.Model, SerializerMixin):
     specialty = db.Column(db.String)
     bio = db.Column(db.String)
 
+    reviews = db.relationship('Review', back_populates='doctors', cascade='all, delete-orphan')
+    users = association_proxy('reviews', 'user', creator=lambda user_obj: Review(user = user_obj))
+
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
 
@@ -28,3 +34,9 @@ class Review(db.Model, SerializerMixin):
     comment = db.Column(db.String)
     time_created = db.Column(db.DateTime, server_default=db.func.now())
     time_updated = db.Column(db.DateTime, onupdate=db.func.now())
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'))
+
+    users = db.relationship('User', back_populates='reviews', cascade='all, delete-orphan')
+    doctors = db.relationship('Doctor', back_populates='reviews', cascade='all, delete-orphan')
