@@ -35,8 +35,8 @@ class Review(db.Model, SerializerMixin):
     time_created = db.Column(db.DateTime, server_default=db.func.now())
     time_updated = db.Column(db.DateTime, onupdate=db.func.now())
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id'))
 
     users = db.relationship('User', back_populates='reviews', cascade='all, delete-orphan')
     doctors = db.relationship('Doctor', back_populates='reviews', cascade='all, delete-orphan')
