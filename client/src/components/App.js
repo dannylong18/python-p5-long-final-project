@@ -1,7 +1,7 @@
-import { Link, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Doctors from "./Doctors";
-import NewReview from "./NewReview";
+import CreateReview from "./CreateReview";
 import NavBar from "./NavBar";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Switch> 
         <Route exact path='/'><Home /></Route> 
         <Route exact path='/doctors'><Doctors /></Route> 
-        <Route exact path='/createreview'><NewReview /></Route>
+        <Route exact path='/createreview'><CreateReview /></Route>
       </Switch>
     </div>
   </div>

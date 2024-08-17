@@ -7,6 +7,8 @@ from config import db
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
+    serialize_rules = ('-reviews.users',)
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
@@ -16,6 +18,8 @@ class User(db.Model, SerializerMixin):
     
 class Doctor(db.Model, SerializerMixin):
     __tablename__ = 'doctors'
+
+    serialize_rules = ('-reviews.doctors',)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -27,6 +31,8 @@ class Doctor(db.Model, SerializerMixin):
 
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
+
+    serialize_rules = ('-user.reviews', '-doctor.reviews',)
 
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer)
