@@ -9,6 +9,10 @@
     list-style-type: none;
   }
 
+.item-grid li .doctor-card.expanded {
+    display: block; /* Show only the expanded card */
+}
+
 .doctor-card {
     border: 1px solid #ddd;
     padding: 15px;
@@ -17,8 +21,14 @@
     flex: 1 1 calc(33.333% - 16px); /* Width for 3 cards per row, minus twice the gap */
     max-width: 300px; /* Prevent cards from getting too wide */
     margin-bottom: 16px; /* Space below each card */
+    transition: all 0.3s ease;
+    position: relative;
   }
 
+.doctor-card.expanded {
+    border: 2px solid #007bff;
+    background-color: #f0f8ff;
+}
 
 .doctor-card h3 {
   font-size: 1.5rem;
