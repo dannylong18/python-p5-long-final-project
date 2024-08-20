@@ -40,7 +40,7 @@ def create_review():
         if not doctor_id or not rating or not comment:
             return make_response({"Error": "Missing required fields"}, 400)
 
-        if 0 <= rating <= 5:
+        if not (0 <= rating <= 5):
              return make_response({"Error": "Rating must be from 0 to 5"}, 400)
         
         new_review = Review(

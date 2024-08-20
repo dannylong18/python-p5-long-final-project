@@ -16,12 +16,17 @@ const validationSchema = Yup.object({
 function CreateReview({doctors}) {
     
     const handleSubmit = (values, { resetForm }) => {
+        const reviewData = {
+            ...values,
+            rating: Number(values.rating),
+        };
+        console.log(reviewData)
         fetch('/createreview', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(values),
+            body: JSON.stringify(reviewData),
         })
         .then(response => {
             if (!response.ok) {
@@ -73,7 +78,7 @@ function CreateReview({doctors}) {
                             <Field as="textarea" name="comment" />
                             <ErrorMessage name="comment" component="div" />
                         </div>
-
+                        <br />
                         <button type="submit">Submit Review</button>
                     </Form>
                 )}
