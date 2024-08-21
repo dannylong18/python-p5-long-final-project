@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, jsonify
+from flask import request, make_response, session, jsonify
 from flask_restful import Resource
 
 # Local imports
