@@ -27,12 +27,15 @@ def signup():
         name = data.get('name')
         age = data.get('age')
         username = data.get('username')
+        print(name)
+        print(age)
+        print(username)
 
         if not name or not age or not username:
             return make_response({"Error": "Missing required fields"}, 400)
         
-        if User.query.filter_by(username=username).first():
-             return make_response({"Error": "Username taken. Please try again."})
+        if User.query.filter(User.username==username).first():
+             return make_response({"Error": "Username taken. Please try again."}, 400)
         
         if not (18 <= age <= 90):
             return make_response({"Error": "Age must be an integer between 18 and 90"}, 400)
@@ -42,13 +45,13 @@ def signup():
              age = age,
              username = username
         )
-        
+        print(new_user)
         try:
             db.session.add(new_user)
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
-            return make_response({"Error": "Username taken. Please try again."}, 400)
+            return make_response({"Error": "Please try again."}, 400)
 
 
         session['user_id'] = new_user.id

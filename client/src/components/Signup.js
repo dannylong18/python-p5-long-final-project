@@ -9,7 +9,7 @@ const validationSchema = Yup.object({
         .max(90, 'Age must be between 18 and 90')
         .required('Age is required'),
     username: Yup.string()
-        .required('Username is required')
+        .required('Username is required and must be unique')
 });
 
 function Signup() {
@@ -26,17 +26,14 @@ function Signup() {
             },
             body: JSON.stringify(reviewData),
         })
-        .then(response => {
-            if (!response.ok) {
-                return response.json().then(errorData => {
-                    throw new Error(errorData.Error || 'Network response was not ok');
-                })
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            alert('User created successfully!');
-            resetForm();
+            if (data.Error) {
+                alert(`Error: ${data.Error}`);
+            } else {
+                alert('User created successfully!');
+                resetForm();
+            }
         })
         .catch(error => {
             console.error('Error creating user:', error);
