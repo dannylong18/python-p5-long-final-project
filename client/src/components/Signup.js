@@ -53,19 +53,19 @@ function Signup() {
                     <Form>
                         <div>
                             <label htmlFor="name">Name: </label>
-                            <Field as="textarea" name="name" />
+                            <Field type="text" id="name" name="name" />
                             <ErrorMessage name="name" component="div" />
                         </div>
                         <br />
                         <div>
                             <label htmlFor="age">Age: </label>
-                            <Field name="age" type="number" min="18" max="90" />
+                            <Field name="age" type="number" id="age" min="18" max="90" />
                             <ErrorMessage name="age" component="div" />
                         </div>
                         <br />
                         <div>
                             <label htmlFor="username">Username: </label>
-                            <Field as="textarea" name="username" />
+                            <Field type="text" id="username" name="username" />
                             <ErrorMessage name="username" component="div" />
                         </div>
                         <br />

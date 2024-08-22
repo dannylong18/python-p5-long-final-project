@@ -18,6 +18,22 @@ from models import User, Doctor, Review
 def index():
     return '<h1>Project Server</h1>'
 
+@app.route('/login', methods=['POST'])
+def login():
+
+    if request.method == 'POST':
+
+        data = request.json
+        username = data.get('username')
+
+        user = User.query.filter(User.username == username).first()
+
+        if user:
+            session['user_id'] = user.id
+            return make_response({'Success': 'User logged in!'}, 201)
+        
+        return {'Error': 'Username is incorrect or does not exist. Please try again.'}, 401
+
 @app.route('/signup', methods=['POST'])
 def signup():
      
@@ -27,9 +43,6 @@ def signup():
         name = data.get('name')
         age = data.get('age')
         username = data.get('username')
-        print(name)
-        print(age)
-        print(username)
 
         if not name or not age or not username:
             return make_response({"Error": "Missing required fields"}, 400)
@@ -45,7 +58,7 @@ def signup():
              age = age,
              username = username
         )
-        print(new_user)
+
         try:
             db.session.add(new_user)
             db.session.commit()
