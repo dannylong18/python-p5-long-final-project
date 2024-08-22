@@ -5,6 +5,7 @@
 # Remote library imports
 from flask import request, make_response, session, jsonify
 from flask_restful import Resource
+from sqlalchemy.exc import IntegrityError
 
 # Local imports
 from config import app, db, api
@@ -13,9 +14,47 @@ from models import User, Doctor, Review
 
 # Views go here!
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def index():
     return '<h1>Project Server</h1>'
+
+@app.route('/signup', methods=['POST'])
+def signup():
+     
+     if request.method == 'POST':
+        data = request.json
+
+        name = data.get('name')
+        age = data.get('age')
+        username = data.get('username')
+
+        if not name or not age or not username:
+            return make_response({"Error": "Missing required fields"}, 400)
+        
+        if User.query.filter_by(username=username).first():
+             return make_response({"Error": "Username taken. Please try again."})
+        
+        if not (18 <= age <= 90):
+            return make_response({"Error": "Age must be an integer between 18 and 90"}, 400)
+
+        new_user = User(
+             name = name,
+             age = age,
+             username = username
+        )
+        
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            return make_response({"Error": "Username taken. Please try again."}, 400)
+
+
+        session['user_id'] = new_user.id
+
+        return make_response({"Message": "User successfully created!"}, 201)
+     
 
 @app.route('/doctors')
 def listdoctors():

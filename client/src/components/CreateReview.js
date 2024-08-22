@@ -20,7 +20,6 @@ function CreateReview({doctors}) {
             ...values,
             rating: Number(values.rating),
         };
-        console.log(reviewData)
         fetch('/createreview', {
             method: 'POST',
             headers: {

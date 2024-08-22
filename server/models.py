@@ -12,7 +12,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    username = db.Column(db.String, nullable=False)
+    username = db.Column(db.String, nullable=False, unique=True)
 
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
     doctors = association_proxy('reviews', 'doctor', creator=lambda doctor_obj: Review(doctor = doctor_obj))
