@@ -1,7 +1,7 @@
 import DoctorCard from "./DoctorCard";
 import './doctorcard.css'
 
-function Doctors({ reviews, handleShowReviews, selectedDoctorId, doctors }) {
+function Doctors({ reviews, handleShowReviews, selectedDoctorId, doctors, user, setReviews }) {
   
     const displayDoctors = () => {
     return doctors.map(doc => (
@@ -12,8 +12,10 @@ function Doctors({ reviews, handleShowReviews, selectedDoctorId, doctors }) {
           specialty={doc.specialty}
           bio={doc.bio}
           reviews={reviews[doc.id] || []}
+          setReviews={setReviews}
           isSelected={selectedDoctorId === doc.id}
           onShowReviews={() => handleShowReviews(doc.id)}
+          user={user}
         />
       </li>
     ));

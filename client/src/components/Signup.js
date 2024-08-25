@@ -12,7 +12,7 @@ const validationSchema = Yup.object({
         .required('Username is required and must be unique')
 });
 
-function Signup() {
+function Signup({setUser}) {
     
     const handleSubmit = (values, { resetForm }) => {
         const reviewData = {
@@ -33,6 +33,7 @@ function Signup() {
             } else {
                 alert('User created successfully!');
                 resetForm();
+                setUser(() => data);
             }
         })
         .catch(error => {

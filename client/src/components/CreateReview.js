@@ -39,13 +39,14 @@ function CreateReview({doctors}) {
         })
         .catch(error => {
             console.error('Error submitting review:', error);
-            alert('Failed to submit review.');
+            alert('Failed to submit review. You must have an account and be signed in to submit a review.');
         });
     };
 
     return (
         <div>
             <h2>Create a Review</h2>
+            <h4>(Users must be logged in or have an account to leave a review)</h4>
             <Formik
                 initialValues={{ doctorId: '', rating: '', comment: '' }}
                 validationSchema={validationSchema}

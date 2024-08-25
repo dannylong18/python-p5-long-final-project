@@ -6,7 +6,7 @@ const validationSchema = Yup.object({
         .required('Username is required to login')
 });
 
-function Login() {
+function Login({setUser}) {
 
     const handleSubmit = (values, { resetForm }) => {
         fetch('/login',{
@@ -23,7 +23,9 @@ function Login() {
             }
             else {
                 alert('Login successful!');
+                console.log(data)
                 resetForm()
+                setUser(() => data)
             }
         })
     }
@@ -39,11 +41,9 @@ function Login() {
                     <Form>
                         <div>
                             <label htmlFor="username">Username: </label>
-                            <Field type="text" id="username" name="username" />
+                            <Field type="text" id="username" name="username" /> <button type="submit">Login</button>
                             <ErrorMessage name="username" component="div" />
                         </div>
-                        <br />
-                        <button type="submit">Login</button>
                     </Form>
                 )}
             </Formik>

@@ -1,3 +1,9 @@
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px; 
+}
 .navbar > a{
     display: inline-block;
     box-sizing: border-box;
@@ -14,4 +20,16 @@
   a.active {
     background: blue;
     color: white;
+  }
+
+.hometogglebtn {
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 0 10px 10px;
+    background: #aea594;
+    text-decoration: none;
+    text-align: center;
+    font-size: min(10vw, 15px) ;
+    color: black;
+    float: right;
   }

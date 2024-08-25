@@ -18,6 +18,15 @@ from models import User, Doctor, Review
 def index():
     return '<h1>Project Server</h1>'
 
+@app.route('/checksession')
+def checksession():
+    user = User.query.filter(User.id == session.get('user_id')).first()
+    if user:
+        user = user.to_dict()
+        return make_response(user, 200)
+    else:
+        return {'Message': '401: Not Authorized'}, 401
+
 @app.route('/login', methods=['POST'])
 def login():
 
@@ -30,9 +39,17 @@ def login():
 
         if user:
             session['user_id'] = user.id
-            return make_response({'Success': 'User logged in!'}, 201)
+            user = user.to_dict()
+            return make_response(user, 201)
         
         return {'Error': 'Username is incorrect or does not exist. Please try again.'}, 401
+
+@app.route('/logout', methods=['DELETE'])
+def logout():
+    if request.method == 'DELETE':
+        session['user_id'] = None
+        return {'Message': 'User logged out!'}, 200
+
 
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -68,14 +85,18 @@ def signup():
 
 
         session['user_id'] = new_user.id
-
-        return make_response({"Message": "User successfully created!"}, 201)
-     
+        new_user = new_user.to_dict()
+        return make_response(new_user, 201)
 
 @app.route('/doctors')
 def listdoctors():
         doctors = [doctor.to_dict() for doctor in Doctor.query.all()]
         return make_response(doctors, 200)
+
+@app.route('/users')
+def listusers():
+    users = [user.to_dict() for user in User.query.all()]
+    return make_response(users, 200)
 
 @app.route('/reviews/<int:id>')
 def listreviews(id):
@@ -84,6 +105,10 @@ def listreviews(id):
 
 @app.route('/createreview', methods=['GET','POST'])
 def create_review():
+     user_id = session.get('user_id')
+
+     if not user_id or not User.query.filter(User.id == user_id).first():
+         return make_response({'Error': 'Unauthorized. Please login or create an account'}, 401)
      
      if request.method == 'POST': 
 
@@ -101,7 +126,8 @@ def create_review():
         new_review = Review(
              rating = rating,
              comment = comment,
-             doctor_id = doctor_id
+             doctor_id = doctor_id,
+             user_id = user_id
         )
 
         db.session.add(new_review)
@@ -110,7 +136,40 @@ def create_review():
         new_review_dict = new_review.to_dict()
         return make_response(new_review_dict, 201)
       
-     
+@app.route('/reviews/<int:review_id>', methods = ['PATCH', 'DELETE'])
+def modify_review(review_id):
+    user_id = session.get('user_id')
+    if not user_id:
+        return make_response({'Error': 'Unauthorized'}, 401)
+    
+    review = Review.query.get(review_id)
+    if not review:
+        return make_response({'Error': 'Review not found'}, 404)
+    
+    if review.user_id != user_id:
+        return make_response({'Error': 'Forbidden'}, 403)
+
+    if request.method == 'PATCH':
+        data = request.json
+        if 'comment' in data:
+            review.comment = data['comment']
+        if 'rating' in data:
+            rating = data['rating']
+            if not (0 <= rating <= 5):
+                return make_response({'Error': 'Rating must be between 0 and 5'}, 400)
+            review.rating = rating
+
+        db.session.add(review)
+        db.session.commit()
+
+        review = review.to_dict()
+        return make_response(review, 200)
+    
+    if request.method == 'DELETE':
+        db.session.delete(review)
+        db.session.commit()
+        return make_response({'Message': 'Review successfully deleted'}, 200)
+    
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
 
