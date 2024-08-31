@@ -1,7 +1,8 @@
 import DoctorCard from "./DoctorCard";
+import CreateDoctor from "./CreateDoctor";
 import './doctorcard.css'
 
-function Doctors({ reviews, handleShowReviews, selectedDoctorId, doctors, user, setReviews }) {
+function Doctors({ reviews, handleShowReviews, selectedDoctorId, setDoctors, doctors, user, setReviews }) {
   
     const displayDoctors = () => {
     return doctors.map(doc => (
@@ -27,6 +28,7 @@ function Doctors({ reviews, handleShowReviews, selectedDoctorId, doctors, user, 
       <ul className="item-grid">
         {displayDoctors()}
       </ul>
+      {user && <CreateDoctor setDoctors={setDoctors} user={user} />}
     </div>
   );
 }

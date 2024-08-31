@@ -1,26 +1,26 @@
 .item-grid {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
-    gap: 16px; /* Space between items (cards) */
-    justify-content: space-between; /* Distribute items evenly with space between them */
-    padding: 50px; /* Optional: Add padding to the container */
+    flex-wrap: wrap; 
+    gap: 16px; 
+    justify-content: space-between; 
+    padding: 50px; 
     margin: 50px;
-    box-sizing: border-box; /* Ensure padding is included in the container width */
+    box-sizing: border-box;
     list-style-type: none;
   }
 
 .item-grid li .doctor-card.expanded {
-    display: block; /* Show only the expanded card */
+    display: block; 
 }
 
 .doctor-card {
     border: 1px solid #ddd;
     padding: 15px;
-    box-sizing: border-box; /* Include padding and border in element’s total width */
+    box-sizing: border-box; 
     text-align: center;
-    flex: 1 1 calc(33.333% - 16px); /* Width for 3 cards per row, minus twice the gap */
-    max-width: 300px; /* Prevent cards from getting too wide */
-    margin-bottom: 16px; /* Space below each card */
+    flex: 1 1 calc(33.333% - 16px);
+    max-width: 300px; 
+    margin-bottom: 16px;
     transition: all 0.3s ease;
     position: relative;
   }
@@ -38,37 +38,36 @@
 .reviews {
     margin-top: 20px;
     padding: 10px;
-    border: 1px solid #ddd; /* Light border to separate reviews from other content */
-    border-radius: 8px; /* Rounded corners for a smoother look */
-    background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for a 3D effect */
+    border: 1px solid #ddd;
+    border-radius: 8px; 
+    background-color: #f9f9f9; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
-/* Styles for individual review items */
 .reviews ul {
-    list-style-type: None; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
+    list-style-type: None;
+    padding: 0;
+    margin: 0; 
 }
 
 .reviews li {
-    padding: 10px 0; /* Space out each review */
-    border-bottom: 1px solid #ddd; /* Light border between reviews */
+    padding: 10px 0; 
+    border-bottom: 1px solid #ddd; 
 }
 
 .reviews li:last-child {
-    border-bottom: none; /* Remove border from the last review */
+    border-bottom: none; 
 }
 
 .review-comment {
-    margin: 0; /* Remove default margins */
-    font-size: 16px; /* Adjust font size for readability */
-    color: #333; /* Darker text color for better contrast */
+    margin: 0; 
+    font-size: 16px; 
+    color: #333; 
 }
 
-/* Styles for review timestamp */
+
 .review-timestamp {
-    margin-top: 5px; /* Add space between comment and timestamp */
-    font-size: 14px; /* Slightly smaller font size for timestamp */
-    color: #333; /* Lighter color for timestamp */
+    margin-top: 5px;
+    font-size: 14px; 
+    color: #333; 
 }

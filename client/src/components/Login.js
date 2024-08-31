@@ -23,7 +23,6 @@ function Login({setUser}) {
             }
             else {
                 alert('Login successful!');
-                console.log(data)
                 resetForm()
                 setUser(() => data)
             }

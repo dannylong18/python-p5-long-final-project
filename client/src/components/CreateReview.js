@@ -5,8 +5,8 @@ const validationSchema = Yup.object({
     doctorId: Yup.number().positive().integer()
         .required('Doctor is required'),
     rating: Yup.number()
-        .min(0, 'Rating must be between 0 and 5')
-        .max(5, 'Rating must be between 0 and 5')
+        .min(0, 'Rating must be between 1 and 5')
+        .max(5, 'Rating must be between 1 and 5')
         .required('Rating is required'),
     comment: Yup.string()
         .max(50, 'Comment must be 50 characters or less')
@@ -68,8 +68,8 @@ function CreateReview({doctors}) {
                         </div>
                         <br />
                         <div>
-                            <label htmlFor="rating">Rating (0-5): </label>
-                            <Field name="rating" type="number" min="0" max="5" />
+                            <label htmlFor="rating">Rating (1-5): </label>
+                            <Field name="rating" type="number" min="1" max="5" />
                             <ErrorMessage name="rating" component="div" />
                         </div>
                         <br />

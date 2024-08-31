@@ -17,8 +17,9 @@ function Signup({setUser}) {
     const handleSubmit = (values, { resetForm }) => {
         const reviewData = {
             ...values,
-            rating: Number(values.age),
+            age: Number(values.age),
         };
+        console.log(reviewData)
         fetch('/signup', {
             method: 'POST',
             headers: {

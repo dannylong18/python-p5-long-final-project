@@ -78,6 +78,7 @@ function App() {
               setReviews={setReviews}
               handleShowReviews={handleShowReviews}
               selectedDoctorId={selectedDoctorId}
+              setDoctors={setDoctors}
               doctors={doctors}
               user={user}
             />
