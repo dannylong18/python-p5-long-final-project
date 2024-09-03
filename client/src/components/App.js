@@ -10,7 +10,7 @@ function App() {
   const [selectedDoctorId, setSelectedDoctorId] = useState(null);
   const [doctors, setDoctors] = useState([]);
   const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
   useEffect(() => {
     fetch("/doctors")
@@ -42,9 +42,6 @@ function App() {
     }
   };
 
-  const toggleForm = () => {
-      setIsLoggedIn(!isLoggedIn)
-  }
 
   const onLogout = () => {
     fetch('/logout', {
@@ -66,8 +63,8 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <Home 
-              isLoggedIn={isLoggedIn}
-              toggleForm={toggleForm}
+              // isLoggedIn={isLoggedIn}
+              // toggleForm={toggleForm}
               user={user}
               setUser={setUser}
             />

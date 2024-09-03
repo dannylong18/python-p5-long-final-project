@@ -14,7 +14,6 @@ from models import User, Doctor, Review
 
 # Views go here!
 
-
 class Index(Resource):
     def get(self):
         return '<h1>Project Server</h1>'

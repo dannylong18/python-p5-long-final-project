@@ -1,8 +1,14 @@
+import { useState } from "react";
 import Signup from "./Signup";
 import Login from "./Login";
 import './navbar.css'
 
-function Home( {isLoggedIn, toggleForm, user, setUser} ) {
+function Home( {user, setUser} ) {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const toggleForm = () => {
+        setIsLoggedIn(!isLoggedIn)
+    }
 
     return(
         <div>
