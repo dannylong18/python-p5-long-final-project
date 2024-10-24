@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import './doctorcard.css';
+import { useContext } from 'react';
+import { AppContext } from './AppContext';
 
-function DoctorCard({ id, name, specialty, bio, reviews, setReviews, isSelected, onShowReviews, user }) {
+function DoctorCard({ id, name, specialty, bio, reviews, isSelected, onShowReviews }) {
+  //Revised Props: { id, name, specialty, bio, reviews, isSelected, onShowReviews }
+  //Original Props: {setReviews, user, id, name, specialty, bio, reviews, isSelected, onShowReviews}
+
+  const {setReviews, user} = useContext(AppContext)
+
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [editComment, setEditComment] = useState('');
   const [editRating, setEditRating] = useState(0);
@@ -76,7 +83,7 @@ function DoctorCard({ id, name, specialty, bio, reviews, setReviews, isSelected,
   };
 
   return (
-    <div className={`doctor-card ${isSelected ? 'expanded' : ''}`}>
+    <section className={`doctor-card ${isSelected ? 'expanded' : ''}`}>
       <h3>{name}</h3>
       <p>{specialty}</p>
       <p>{bio}</p>
@@ -84,7 +91,7 @@ function DoctorCard({ id, name, specialty, bio, reviews, setReviews, isSelected,
         {isSelected ? 'Hide Reviews' : 'Show Reviews'}
       </button>
       {isSelected && (
-        <div className="reviews">
+        <section className="reviews">
           {reviews.length > 0 ? (
             <ol>
               {reviews.map(review => (
@@ -124,9 +131,9 @@ function DoctorCard({ id, name, specialty, bio, reviews, setReviews, isSelected,
           ) : (
             <p>No reviews available.</p>
           )}
-        </div>
+        </section>
       )}
-    </div>
+    </section>
   );
 }
 

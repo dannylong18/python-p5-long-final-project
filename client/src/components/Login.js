@@ -1,12 +1,17 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from 'yup';
+import { useContext } from "react";
+import { AppContext } from "./AppContext";
 
 const validationSchema = Yup.object({
     username: Yup.string()
         .required('Username is required to login')
 });
 
-function Login({setUser}) {
+function Login() {
+        //{setUser, user}
+
+    const {setUser, divStyle, formStyle} = useContext(AppContext)
 
     const handleSubmit = (values, { resetForm }) => {
         fetch('/login',{
@@ -30,18 +35,24 @@ function Login({setUser}) {
     }
 
     return (
-        <div>
+        <div style={divStyle}>
             <Formik 
                 initialValues={{ username: '' }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
                 {() => (
-                    <Form>
+                    <Form style={formStyle}>
                         <div>
                             <label htmlFor="username">Username: </label>
-                            <Field type="text" id="username" name="username" /> <button type="submit">Login</button>
+                            <Field type="text" id="username" name="username" /> 
+                            <br />
+                            
                             <ErrorMessage name="username" component="div" />
+                        </div>
+                        <br />
+                        <div>
+                                <button type="submit">Login</button>
                         </div>
                     </Form>
                 )}

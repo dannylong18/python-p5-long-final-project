@@ -1,8 +1,9 @@
 .button-container {
-  display: flex;
+  display:flex ;
   justify-content: space-between;
   align-items: center;
   padding: 10px; 
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); ;
 }
 .navbar > a{
     display: inline-block;
@@ -33,3 +34,112 @@
     color: black;
     float: right;
   }
+
+Base Styles
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1, h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+/*
+div {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 20px auto;
+}
+
+form {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.hometogglebtn {
+  padding: 10px 20px;
+  background-color: #6a9e58;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hometogglebtn:hover {
+  background-color: #4d7c41;
+  transform: scale(1.05);
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #6a9e58;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #4d7c41;
+}
+
+@media (max-width: 768px) {
+  div {
+      width: 90%;
+      padding: 15px;
+  }
+
+  h1 {
+      font-size: 1.5rem;
+  }
+}
+ */

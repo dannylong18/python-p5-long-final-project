@@ -1,8 +1,12 @@
 import DoctorCard from "./DoctorCard";
 import CreateDoctor from "./CreateDoctor";
 import './doctorcard.css'
+import { useContext } from "react";
+import { AppContext } from "./AppContext";
 
-function Doctors({ reviews, handleShowReviews, selectedDoctorId, setDoctors, doctors, user, setReviews }) {
+function Doctors() {
+//Original Props: {reviews, setReviews, selectedDoctorId, doctors, setDoctors, user, handleShowReviews}
+    const {user, doctors, reviews, selectedDoctorId, handleShowReviews} = useContext(AppContext)
   
     const displayDoctors = () => {
     return doctors.map(doc => (
@@ -13,23 +17,26 @@ function Doctors({ reviews, handleShowReviews, selectedDoctorId, setDoctors, doc
           specialty={doc.specialty}
           bio={doc.bio}
           reviews={reviews[doc.id] || []}
-          setReviews={setReviews}
+          // setReviews={setReviews}
           isSelected={selectedDoctorId === doc.id}
           onShowReviews={() => handleShowReviews(doc.id)}
-          user={user}
+          // user={user}
         />
       </li>
     ));
   };
 
   return (
-    <div>
-      <h2>Doctors</h2>
+    <>
+      <h2 style={{textAlign: "center", color: '#e57373'}}>Doctors</h2>
       <ul className="item-grid">
         {displayDoctors()}
       </ul>
-      {user && <CreateDoctor setDoctors={setDoctors} user={user} />}
-    </div>
+      {user && <CreateDoctor 
+      // setDoctors={setDoctors} 
+      // user={user} 
+      />}
+    </>
   );
 }
 

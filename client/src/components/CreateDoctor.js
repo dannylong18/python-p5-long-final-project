@@ -1,5 +1,7 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useContext } from 'react';
+import { AppContext } from './AppContext';
 
 const validationSchema = Yup.object({
     name: Yup.string().required('Name is required'),
@@ -7,7 +9,10 @@ const validationSchema = Yup.object({
     bio: Yup.string()
 });
 
-function CreateDoctor ({ setDoctors, user}) {
+function CreateDoctor () {
+                //{ setDoctors, user}
+                
+    const {setDoctors, user, divStyle} = useContext(AppContext)
 
     if (!user) {
         return <p>User must be logged in to add a new doctor.</p>
@@ -38,7 +43,7 @@ function CreateDoctor ({ setDoctors, user}) {
     }
 
     return (
-        <div>
+        <div style={divStyle}>
             <h3>Don't see your doctor? Add a New Doctor</h3>
             <Formik
             initialValues={{ name: '', specialty: '', bio: '' }}

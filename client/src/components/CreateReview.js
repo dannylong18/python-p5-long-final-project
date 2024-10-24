@@ -1,5 +1,7 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useContext } from 'react';
+import { AppContext } from './AppContext';
 
 const validationSchema = Yup.object({
     doctorId: Yup.number().positive().integer()
@@ -13,8 +15,11 @@ const validationSchema = Yup.object({
         .required('Comment is required')
 });
 
-function CreateReview({doctors}) {
-    
+function CreateReview() {
+                //{doctors}
+                
+    const {doctors, divStyle, formStyle} = useContext(AppContext)
+
     const handleSubmit = (values, { resetForm }) => {
         const reviewData = {
             ...values,
@@ -44,7 +49,7 @@ function CreateReview({doctors}) {
     };
 
     return (
-        <div>
+        <div style={divStyle}>
             <h2>Create a Review</h2>
             <h4>(Users must be logged in or have an account to leave a review)</h4>
             <Formik
@@ -53,8 +58,8 @@ function CreateReview({doctors}) {
                 onSubmit={handleSubmit}
             >
                 {() => (
-                    <Form>
-                        <div>
+                    <Form style={formStyle}>
+                        <section>
                             <label htmlFor="doctorId">Select Doctor: </label>
                             <Field as="select" name="doctorId">
                                 <option value="">Select a doctor...</option>
@@ -65,19 +70,19 @@ function CreateReview({doctors}) {
                                 ))}
                             </Field>
                             <ErrorMessage name="doctorId" component="div" />
-                        </div>
+                        </section>
                         <br />
-                        <div>
+                        <section>
                             <label htmlFor="rating">Rating (1-5): </label>
                             <Field name="rating" type="number" min="1" max="5" />
                             <ErrorMessage name="rating" component="div" />
-                        </div>
+                        </section>
                         <br />
-                        <div>
+                        <section>
                             <label htmlFor="comment">Comment: </label>
                             <Field as="textarea" name="comment" />
                             <ErrorMessage name="comment" component="div" />
-                        </div>
+                        </section>
                         <br />
                         <button type="submit">Submit Review</button>
                     </Form>

@@ -1,5 +1,7 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useContext } from 'react';
+import { AppContext } from './AppContext';
 
 const validationSchema = Yup.object({
     name: Yup.string()
@@ -12,8 +14,11 @@ const validationSchema = Yup.object({
         .required('Username is required and must be unique')
 });
 
-function Signup({setUser}) {
-    
+function Signup() {
+            //{setUser}
+            
+    const {setUser, divStyle, formStyle} = useContext(AppContext)
+
     const handleSubmit = (values, { resetForm }) => {
         const reviewData = {
             ...values,
@@ -44,15 +49,15 @@ function Signup({setUser}) {
     };
 
     return (
-        <div>
-            <h2>Signup to leave a review!</h2>
+        <div style={divStyle}>
+            <h2>Signup to get started!</h2>
             <Formik
                 initialValues={{ name: '', age: '', username: '' }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
             >
                 {() => (
-                    <Form>
+                    <Form style={formStyle}>
                         <div>
                             <label htmlFor="name">Name: </label>
                             <Field type="text" id="name" name="name" />
