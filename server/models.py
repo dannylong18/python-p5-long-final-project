@@ -7,7 +7,7 @@ from config import db
 class User(db.Model, SerializerMixin):
     __tablename__ = 'users'
 
-    serialize_rules = ('-reviews.users',)
+    serialize_rules = ('-reviews.users', '-payments.user',)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -16,6 +16,7 @@ class User(db.Model, SerializerMixin):
 
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
     doctors = association_proxy('reviews', 'doctor', creator=lambda doctor_obj: Review(doctor = doctor_obj))
+    payments = db.relationship('StripePayment', back_populates='user', cascade='all, delete-orphan')
     
 class Doctor(db.Model, SerializerMixin):
     __tablename__ = 'doctors'
@@ -46,3 +47,17 @@ class Review(db.Model, SerializerMixin):
 
     user = db.relationship('User', back_populates='reviews')
     doctor = db.relationship('Doctor', back_populates='reviews')
+
+class StripePayment (db.Model, SerializerMixin):
+    __tablename__ = 'stripe_payments'
+
+    serialize_rules = ('-user.payments',)
+
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Integer, nullable=False)
+    timestamp = db.Column(db.DateTime, server_default=db.func.now())
+    method = db.Column(db.String, nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    user = db.relationship('User', back_populates='payments')

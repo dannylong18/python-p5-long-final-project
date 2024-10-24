@@ -3,16 +3,73 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, session, jsonify
+from flask import request, make_response, session, url_for, redirect
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+import stripe
+import traceback
+import stripe.error
 
 # Local imports
 from config import app, db, api
 # Add your model imports
-from models import User, Doctor, Review
+from models import User, Doctor, Review, StripePayment
 
+stripe.api_key = 'sk_test_51Q84OoHti3OJEVYB8aAlZ5R60xvdLxqApTPkAin6NWvqNugT7Iy13kN5Ixbl9orcGPCprvKE9pQ52XkOQdMQvkFK00ElC3xMys'
 # Views go here!
+
+class Payment(Resource):
+    def post(self):
+        user_id = session.get('user_id')
+        if not user_id or not User.query.filter(User.id == user_id).first():
+            return make_response({"Error": "Unauthorized. Please login or create an account to make a payment."}, 401)
+        
+        try:
+            data = request.get_json()
+            amount = data.get('amount')
+            
+            if not amount or amount <= 0:
+                return make_response({'Error': 'Invalid Amount'}, 400)
+            
+            print("Creating Stripe Checkout session...")
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {
+                            "name": "Custom Payment",
+                        },
+                        "unit_amount": int(amount * 100),
+                    },
+                    "quantity": 1,
+                }],
+                mode="payment",
+                success_url='http://localhost:3000/payment_success',
+                cancel_url='http://localhost:3000/payment_fail',
+            )
+
+            transaction = StripePayment(
+                amount=int(amount),
+                method='credit card',
+                user_id=user_id
+                )
+
+            db.session.add(transaction)
+            db.session.commit()
+            
+            return make_response({'session_id': checkout_session.id}, 200)
+        
+        except stripe.error.StripeError as e:
+            print(f"Stripe error occurred: {e}")
+            return make_response({'error': str(e)}, 500)
+        except Exception as e:
+            print(f"General error occurred: {str(e)}")
+            print("Stack trace:")
+            print(traceback.format_exc())
+            return make_response({'error': 'Something went wrong, please try again'}, 500)
+
+api.add_resource(Payment, '/payment')
 
 class Index(Resource):
     def get(self):
@@ -103,7 +160,7 @@ class CreateDoctor(Resource):
     def post(self):
         user_id = session.get('user_id')
         if not user_id or not User.query.filter(User.id == user_id).first():
-            return make_response({"Error": "Unauthorized. Please login or create an account."})
+            return make_response({"Error": "Unauthorized. Please login or create an account."}, 401)
         
         data = request.json
         name = data.get('name')
@@ -223,6 +280,22 @@ class ModifyReview(Resource):
 
 api.add_resource(ModifyReview, '/reviews/<int:review_id>', endpoint='modifyreview')
 
+class FilterDoctors (Resource):
+    def get (self, user_id, specialty):
+        # user_id = session.get('user_id')
+
+        # if not user_id: 
+        #     return make_response ({"Error": "User must be logged in"})
+        
+        user = User.query.filter(User.id == user_id).first()
+        user_docs = user.doctors
+        doc = [doc.to_dict(rules = '') for doc in user_docs if doc.specialty == specialty]
+        return make_response (doc, 200)
+        # reviews = [r for r in Review.query.filter(Review.user_id == user_id).all()]
+        # for review in reviews:
+            
+
+api.add_resource(FilterDoctors, '/filter_doctors/<int:user_id>/<string:specialty>', endpoint='filter_doctors')
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
