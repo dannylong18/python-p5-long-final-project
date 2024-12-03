@@ -12,44 +12,10 @@ The purpose of Concierge MD is to lay the groundwork for a more extensive health
 
 ## Installation
 
-This application is still under development and not currently hosted, however, users can run it locally: 
+This application is still under development and not currently hosted, however, users can clone and run code locally via: 
 
-1. Clone the repository:
+https://github.com/dannylong18/python-p5-long-final-project.git
 
-```bash
-git clone https://github.com/dannylong18/python-p5-long-final-project.git
-cd concierge-md
-```
-2. Install dependencies:
-
-```json
-npm install
-```
-
-   Dependencies:
-
-```bash
-{
-  "@testing-library/jest-dom": "^5.17.0",
-  "@testing-library/react": "^13.4.0",
-  "@testing-library/user-event": "^13.5.0",
-  "formik": "^2.4.6",
-  "react": "^18.2.0",
-  "react-dom": "^18.2.0",
-  "react-router-dom": "^5.2.0",
-  "react-scripts": "5.0.1",
-  "web-vitals": "^2.1.4",
-  "yup": "^1.4.0",
-  "@stripe/stripe-js": "^4.7.0",
-  "bootstrap": "^5.3.3"
-}
-```
-
-3. Run the application:
-
-```json
-npm start
-```
 
 ## Features
 
