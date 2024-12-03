@@ -14,6 +14,7 @@ Installation
 Since the application is still under development and not currently hosted, you would typically run it locally:
 
 Clone the repository:
+
 bash
 git clone https://github.com/dannylong18/python-p5-long-final-project.git
 cd concierge-md
@@ -22,32 +23,32 @@ bash
 npm install
 
 Dependencies:
+
 json
 {
-  "@testing-library/jest-dom": "^5.17.0",
-  "@testing-library/react": "^13.4.0",
-  "@testing-library/user-event": "^13.5.0",
-  "formik": "^2.4.6",
-  "react": "^18.2.0",
-  "react-dom": "^18.2.0",
-  "react-router-dom": "^5.2.0",
-  "react-scripts": "5.0.1",
-  "web-vitals": "^2.1.4",
-  "yup": "^1.4.0",
-  "@stripe/stripe-js": "^4.7.0",
-  "bootstrap": "^5.3.3"
+"@testing-library/jest-dom": "^5.17.0",
+"@testing-library/react": "^13.4.0",
+"@testing-library/user-event": "^13.5.0",
+"formik": "^2.4.6",
+"react": "^18.2.0",
+"react-dom": "^18.2.0",
+"react-router-dom": "^5.2.0",
+"react-scripts": "5.0.1",
+"web-vitals": "^2.1.4",
+"yup": "^1.4.0",
+"@stripe/stripe-js": "^4.7.0",
+"bootstrap": "^5.3.3"
 }
+
 Run the application:
 bash
 npm start
 
-Usage
-
 Features
-User Profile Management: Users can create profiles, login, and logout.
-Physician Directory: View physicians subscribed to the application.
-Review System: Comment and rate physicians (requires login).
-Payment Integration: Stripe integration for potential future features.
+- User Profile Management: Users can create profiles, login, and logout.
+- Physician Directory: View physicians subscribed to the application.
+- Review System: Comment and rate physicians (requires login).
+- Payment Integration: Stripe integration for potential future features.
 
 Configuration
 No special configuration is needed to run the application. All settings are managed within the code base.
