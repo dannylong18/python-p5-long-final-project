@@ -51,8 +51,6 @@ npm install
 npm start
 ```
 
-## Usage
-
 ## Features
 
 - User Profile Management: Users can create profiles, login, and logout.
