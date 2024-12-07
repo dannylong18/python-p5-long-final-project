@@ -12,7 +12,7 @@ The purpose of Concierge MD is to lay the groundwork for a more extensive health
 
 ## Installation
 
-This application is still under development and not currently hosted, however, users can clone and run code locally via: 
+This application is still under development and not currently hosted, however, users can clone this repository and run code locally via: 
 
 https://github.com/dannylong18/python-p5-long-final-project.git
 
@@ -22,7 +22,7 @@ https://github.com/dannylong18/python-p5-long-final-project.git
 - User Profile Management: Users can create profiles, login, and logout.
 - Physician Directory: View physicians subscribed to the application.
 - Review System: Comment and rate physicians (requires login).
-- Payment Integration: Stripe integration for potential future features.
+- Payment Integration: Stripe integration for potential future financial features.
 
 ## Configuration
 No special configuration is needed to run the application. All settings are managed within the code base.
